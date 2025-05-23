@@ -374,6 +374,7 @@
             <div class="mt-2">
               <span class="tag">C# Web Developer</span>
               <span class="tag">JS Web Developer</span>
+              <span class="tag">Java</span>
             </div>
             <div class="chart-container mt-4">
               <canvas id="computerSkillsChart"></canvas>
@@ -638,18 +639,20 @@
       const computerSkillsChart = new Chart(computerSkillsCtx, {
           type: 'bar',
           data: {
-              labels: ['C# Web Dev', 'JS Web Dev', 'Други софтуерни продукти'],
+              labels: ['C# Web Dev', 'JS Web Dev', 'Java', 'Други софтуерни продукти'],
               datasets: [{
                   label: 'Ниво на владеене',
-                  data: [4, 4, 3], // Примерни стойности: 5 = Експерт, 4 = Напреднал, 3 = Добър, 2 = Основен, 1 = Начинаещ
+                  data: [4, 4, 4, 3], // Примерни стойности: 5 = Експерт, 4 = Напреднал, 3 = Добър, 2 = Основен, 1 = Начинаещ
                   backgroundColor: [
                       'rgba(14, 165, 233, 0.7)',
                       'rgba(3, 105, 169, 0.7)',
+                      'rgba(234, 88, 12, 0.7)',
                       'rgba(56, 189, 248, 0.7)' // Lighter sky blue
                   ],
                   borderColor: [
                       'rgba(14, 165, 233, 1)',
                       'rgba(3, 105, 169, 1)',
+                      'rgba(234, 88, 12, 1)',
                       'rgba(56, 189, 248, 1)'
                   ],
                   borderWidth: 1
