@@ -1,0 +1,114 @@
+{
+  "personal_info": {
+    "name": "Емануил Александров Николов",
+    "location": "гр. Разград, България",
+    "contacts": {
+      "email": "eiv.razgrad@gmail.com",
+      "phone": "0882084264",
+      "github": "https://github.com/EmORz"
+    },
+    "photo_url": "https://raw.githubusercontent.com/EmORz/demo-spa/refs/heads/main/images/emo_1.jpg"
+  },
+  "about_me": "Аз съм Емануил Николов, младши експерт с опит в социалната политика и културния сектор, който активно се стреми към кариерно развитие в сферата на Java технологиите...",
+  "experience": [
+    {
+      "position": "Младши експерт „Етнически и интеграционни въпроси“",
+      "employer": "Община Разград, Отдел „Социални услуги и здравеопазване“",
+      "period": "Към настоящия момент",
+      "responsibilities": [
+        "Разработване на стратегически документи, свързани с интеграцията на уязвими общности",
+        "Изпълняване на различни задачи, възложени от ръководството"
+      ]
+    },
+    {
+      "position": "Екскурзовод",
+      "employer": "Етнографски музей гр. Разград",
+      "period": "2010 - 2014",
+      "responsibilities": [
+        "Водене на туристически групи и представяне на експозициите в музея"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Дигитално общество Разград",
+      "program": "8 месечен курс програмиране Java",
+      "link": "https://digitalrazgrad.org/"
+    },
+    {
+      "institution": "СофтУни",
+      "programs": [
+        {
+          "name": "C# Web Developer",
+          "certificate_link": "https://softuni.bg/certificates/details/92707/2be8fdd8"
+        },
+        {
+          "name": "JS Web Developer",
+          "certificate_link": "https://softuni.bg/certificates/details/84577/d72eff51"
+        }
+      ]
+    },
+    {
+      "institution": "ШУ „Еп. Константин Преславски“",
+      "degrees": [
+        "Бакалавър: История с учителска квалификация.",
+        "Магистър: Диагностика и корекция на комуникативни нарушения, логопед"
+      ]
+    }
+  ],
+  "skills": {
+    "languages": [
+      {
+        "name": "Български",
+        "level": "Майчин"
+      },
+      {
+        "name": "Английски",
+        "level": "B1 (разбиране, говорене, писане)"
+      }
+    ],
+    "technical": [
+      {
+        "name": "C# Web Developer",
+        "level": 4
+      },
+      {
+        "name": "JS Web Developer",
+        "level": 4
+      },
+      {
+        "name": "Java",
+        "level": 4
+      }
+    ],
+    "other": [
+      "Добри комуникационни умения",
+      "Лидерски умения",
+      "Работа с качество и одит"
+    ]
+  },
+  "additional_info": {
+    "interests": "Четене",
+    "blog": {
+      "name": "Църква на адвентистите от седмия ден – Разград",
+      "url": "https://casd-rz.blogspot.com/"
+    },
+    "other": {
+        "name": "Отиди на страница с допълнителна информация",
+        "link": "./AddionInf.html"
+    },
+    "driving_license": "Няма"
+  },
+  "certificates": [
+    {
+      "name": "C# Web Developer",
+      "issuer": "СофтУни",
+      "url": "https://softuni.bg/certificates/details/92707/2be8fdd8"
+    },
+    {
+      "name": "JS Web Developer",
+      "issuer": "СофтУни",
+      "url": "https://softuni.bg/certificates/details/84577/d72eff51"
+    }
+  ]
+}

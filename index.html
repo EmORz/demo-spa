@@ -1,739 +1,270 @@
 <!DOCTYPE html>
 <html lang="bg">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Автобиография - Емануил Николов</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Visualization & Content Choices: 
-        - За мен: Цел: Обобщаване. Метод: HTML текст. Интеракция: Няма.
-        - Лична информация/Контакти: Цел: Информиране. Метод: Структуриран HTML текст с икони. Интеракция: Кликаеми линкове (email, телефон).
-        - Цел на кандидатстване: Цел: Информиране. Метод: HTML текст. Интеракция: Няма.
-        - Трудов стаж/Образование: Цел: Информиране/Организиране. Метод: Хронологични HTML списъци (карто-подобни елементи) с подобрени hover ефекти. Интеракция: Кликаеми линкове към дипломи в секция Образование.
-        - Умения: Цел: Информиране/Визуализация. Метод: HTML списъци, групирани по категории, и Chart.js хоризонтални лентови диаграми за компютърни и езикови умения. Интеракция: Няма, но визуалното представяне е интерактивно.
-        - Допълнителна информация/Сертификати: Цел: Предоставяне на достъп/Информиране. Метод: Кликаеми HTML линкове към блог и сертификати. Интеракция: Клик.
-        Използвани библиотеки: Tailwind CSS, Chart.js.
-        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-      body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-      .section-title { font-size: 1.75rem; font-weight: 600; color: #0369a1; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #0ea5e9; }
-      .card { background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 1.5rem; margin-bottom: 1rem; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
-      .card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
-      .nav-link { padding: 0.5rem 1rem; border-radius: 0.375rem; transition: background-color 0.3s, color 0.3s; }
-      .nav-link:hover { background-color: #0ea5e9; color: white; }
-      .icon-text { display: inline-flex; align-items: center; }
-      .icon-text svg { margin-right: 0.5rem; }
-      .tag { display: inline-block; background-color: #e0f2fe; color: #0ea5e9; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; margin-right: 0.5rem; margin-bottom: 0.5rem;}
-      .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
-      @media (min-width: 768px) { .chart-container { height: 350px; } }
-      #back-to-top {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background-color: #0ea5e9;
-          color: white;
-          padding: 0.75rem 1rem;
-          border-radius: 9999px;
-          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-          cursor: pointer;
-          display: none; /* Hidden by default */
-          z-index: 1000;
-          transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-      }
-      #back-to-top:hover {
-          background-color: #0369a1;
-          transform: translateY(-2px);
-      }
-    </style>
-  </head>
-  <body class="bg-slate-50 text-slate-800">
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <div class="flex items-center">
-            <a href="#" class="text-xl font-bold text-sky-700"
-              >Емануил Николов</a
-            >
-          </div>
-          <div class="hidden md:block">
-            <div class="ml-10 flex items-baseline space-x-4">
-              <a href="#about-me" class="nav-link text-slate-700">За мен</a>
-              <a href="#objective" class="nav-link text-slate-700">Цел</a>
-              <a href="#experience" class="nav-link text-slate-700">Опит</a>
-              <a href="#education" class="nav-link text-slate-700"
-                >Образование</a
-              >
-              <a href="#skills" class="nav-link text-slate-700">Умения</a>
-              <a href="#additional" class="nav-link text-slate-700">Друго</a>
-              <a href="#certificates" class="nav-link text-slate-700"
-                >Сертификати</a
-              >
-            </div>
-          </div>
-          <div class="-mr-2 flex md:hidden">
-            <button
-              type="button"
-              id="mobile-menu-button"
-              class="bg-white inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-sky-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
-            >
-              <span class="sr-only">Отвори главното меню</span>
-              <svg
-                class="block h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              <svg
-                class="hidden h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Автобиография - Емануил Николов</title>
+  <link href="/dist/output.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    .card {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #0369a1;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8">
+    <header class="text-center mb-8">
+      <img id="profile-photo" src="" alt="Профилна снимка" class="rounded-full mx-auto mb-4 w-32 h-32 object-cover border-4 border-blue-500">
+      <h1 id="name" class="text-3xl font-bold text-blue-800"></h1>
+      <p id="location" class="text-xl text-gray-600"></p>
+      <div id="contacts" class="flex justify-center space-x-4 mt-4"></div>
+    </header>
+
+    <section id="about-me" class="mb-8">
+      <h2 class="section-title">За мен</h2>
+      <div class="card">
+        <p id="about-text"></p>
+      </div>
+    </section>
+
+    <section id="experience" class="mb-8">
+      <h2 class="section-title">Трудов стаж</h2>
+      <div id="experience-container"></div>
+    </section>
+
+    <section id="education" class="mb-8">
+      <h2 class="section-title">Образование</h2>
+      <div id="education-container"></div>
+    </section>
+
+    <section id="skills" class="mb-8">
+      <h2 class="section-title">Умения</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card">
+          <h3 class="text-xl font-semibold mb-2">Езикови умения</h3>
+          <canvas id="languageChart" height="200"></canvas>
+        </div>
+        <div class="card">
+          <h3 class="text-xl font-semibold mb-2">Технически умения</h3>
+          <canvas id="technicalChart" height="200"></canvas>
+        </div>
+        <div class="card md:col-span-2">
+          <h3 class="text-xl font-semibold mb-2">Други умения</h3>
+          <ul id="other-skills" class="list-disc pl-5"></ul>
         </div>
       </div>
-      <div class="md:hidden hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <a href="#about-me" class="block nav-link text-slate-700">За мен</a>
-          <a href="#objective" class="block nav-link text-slate-700">Цел</a>
-          <a href="#experience" class="block nav-link text-slate-700">Опит</a>
-          <a href="#education" class="block nav-link text-slate-700"
-            >Образование</a
-          >
-          <a href="#skills" class="block nav-link text-slate-700">Умения</a>
-          <a href="#additional" class="block nav-link text-slate-700">Друго</a>
-          <a href="#certificates" class="block nav-link text-slate-700"
-            >Сертификати</a
-          >
-        </div>
+    </section>
+
+    <section id="additional" class="mb-8">
+      <h2 class="section-title">Допълнителна информация</h2>
+      <div class="card">
+        <ul id="additional-info" class="list-disc pl-5"></ul>
       </div>
-    </nav>
+    </section>
 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-12">
-      <header class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-sky-800 mb-2">
-          Емануил Александров Николов
-        </h1>
-          <img
-          src="https://raw.githubusercontent.com/EmORz/demo-spa/refs/heads/main/images/emo_1.jpg"
-          alt="Снимка на Емануил Николов"
-          class="rounded-full mx-auto mb-4 w-36 h-36 object-cover border-4 border-sky-500 shadow-lg"
-          onerror="this.onerror=null; this.src='https://placehold.co/150x150/e0f2fe/0369a1?text=Placeholder';"
-        />
-        <p class="text-xl text-slate-600 mb-4">гр. Разград, България</p>
-        <div class="flex justify-center space-x-6 text-slate-600">
-            <a
-            href="https://github.com/EmORz"
-               target="_blank"
-            class="icon-text hover:text-sky-600"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-              />
-              <path
-                d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
-              />
-            </svg>
-            <span>https://github.com/EmORz</span>
-          </a>
-          <a
-            href="mailto:eiv.razgrad@gmail.com"
-            class="icon-text hover:text-sky-600"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-              />
-              <path
-                d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
-              />
-            </svg>
-            <span>eiv.razgrad@gmail.com</span>
-          </a>
-          <a href="tel:0882084264" class="icon-text hover:text-sky-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
-              />
-            </svg>
-            <span>0882 084264</span>
-          </a>
-        </div>
-      </header>
+    <section id="certificates" class="mb-8">
+      <h2 class="section-title">Сертификати</h2>
+      <div id="certificates-container" class="card"></div>
+    </section>
+  </div>
 
-      <section id="about-me" class="mb-12">
-        <h2 class="section-title">За мен</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">
-          Тази секция предоставя кратък преглед на моя професионален профил,
-          ключови умения и стремежи, като обобщава най-важното от моята
-          автобиография.
-        </p>
-        <div class="card mt-4">
-          <p class="text-slate-700 text-lg">
-            Аз съм Емануил Николов, младши експерт с опит в социалната политика
-            и културния сектор, който активно се стреми към кариерно развитие в
-            сферата на Java технологиите. Притежавам силни комуникационни и
-            организационни умения, както и доказани способности за работа с
-            различни програмни продукти. Мотивиран съм да прилагам придобитите
-            си знания и да се развивам в динамична и предизвикателна среда.
-          </p>
-        </div>
-      </section>
-
-      <section id="objective" class="mb-12">
-        <h2 class="section-title">Цел</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('./data.json')
+        .then(response => {
+          if (!response.ok) throw new Error('Грешка при зареждане на данните');
+          return response.json();
+        })
+        .then(data => {
+          // 1. Лична информация
+          document.getElementById('name').textContent = data.personal_info.name;
+          document.getElementById('location').textContent = data.personal_info.location;
+          
+          // Профилна снимка
+          const profilePhoto = document.getElementById('profile-photo');
+          profilePhoto.src = data.personal_info.photo_url;
+          profilePhoto.onerror = () => {
+            profilePhoto.src = 'https://via.placeholder.com/150';
+          };
+          
+          // Контакти
+          const contactsContainer = document.getElementById('contacts');
+          contactsContainer.innerHTML = `
+            <a href="mailto:${data.personal_info.contacts.email}" class="flex items-center text-blue-600">
+          
+              ${data.personal_info.contacts.email}
+            </a>
+            <BR>
+            <a href="tel:${data.personal_info.contacts.phone}" class="flex items-center text-blue-600">
          
-        </p>
-        <div class="card mt-4">
-          <p class="text-slate-700 text-lg">
-      
-          </p>
-        </div>
-      </section>
-
-      <section id="experience" class="mb-12">
-        <h2 class="section-title">Трудов стаж</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">
-          Тук можете да намерите информация за моя професионален опит,
-          включително заемани длъжности и основни отговорности.
-        </p>
-        <div class="mt-4 space-y-6">
-          <div class="card">
-            <h3 class="text-xl font-semibold text-sky-700">
-              Младши експерт „Етнически и интеграционни въпроси“
-            </h3>
-            <p class="text-sm text-slate-500">
-              Община Разград, Отдел „Социални услуги и здравеопазване“ | Към
-              настоящия момент
-            </p>
-            <ul class="list-disc list-inside mt-2 text-slate-700">
-              <li>
-                Разработване на стратегически документи, свързани с интеграцията
-                на уязвими общности.
-              </li>
-              <li>
-                Изпълняване на различни задачи, възложени от ръководството.
-              </li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3 class="text-xl font-semibold text-sky-700">Екскурзовод</h3>
-            <p class="text-sm text-slate-500">
-              Етнографски музей гр. Разград | Приблизително 2010 - 2014
-            </p>
-            <p class="mt-2 text-slate-700">
-              Водене на туристически групи и представяне на експозициите в
-              музея.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="education" class="mb-12">
-        <h2 class="section-title">Образование и Обучение</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">
-          Тази секция описва моята образователна квалификация и допълнителни
-          обучения, които съм преминал, включително специализации и сертификати.
-        </p>
-        <div class="mt-4 space-y-6">
-           <div class="card">
-            <h3 class="text-xl font-semibold text-sky-700">
-              Дигитално общество Разград
-            </h3>
-            <p class="text-sm text-slate-500">Разград, България</p>
-            <ul class="list-disc list-inside mt-2 text-slate-700">
-              <li>8 месечен курс програмиране Java
-                <a
-                  href="https://digitalrazgrad.org/"
-                  target="_blank"
-                  class="text-sky-600 hover:text-sky-800 hover:underline icon-text"
-                  >Линк</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3 class="text-xl font-semibold text-sky-700">СофтУни</h3>
-            <p class="text-sm text-slate-500">София, България</p>
-            <ul class="list-disc list-inside mt-2 text-slate-700">
-              <li>
-                C# Web Developer:
-                <a
-                  href="https://softuni.bg/certificates/details/92707/2be8fdd8"
-                  target="_blank"
-                  class="text-sky-600 hover:text-sky-800 hover:underline icon-text"
-                  >🔗 Преглед на сертификат</a
-                >
-              </li>
-              <li>
-                JS Web Developer:
-                <a
-                  href="https://softuni.bg/certificates/details/84577/d72eff51"
-                  target="_blank"
-                  class="text-sky-600 hover:text-sky-800 hover:underline icon-text"
-                  >🔗 Преглед на сертификат</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3 class="text-xl font-semibold text-sky-700">
-              ШУ „Еп. Константин Преславски“
-            </h3>
-            <p class="text-sm text-slate-500">Шумен, България</p>
-            <ul class="list-disc list-inside mt-2 text-slate-700">
-              <li>Бакалавър: История с учителска квалификация.</li>
-              <li>
-                Магистър: Диагностика и корекция на комуникативни нарушения,
-                логопед.
-              </li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3 class="text-xl font-semibold text-sky-700">ТУ Варна</h3>
-            <p class="text-sm text-slate-500">Варна, България</p>
-            <ul class="list-disc list-inside mt-2 text-slate-700">
-              <li>Магистратура: Социален мениджмънт.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3 class="text-xl font-semibold text-sky-700">
-              ВТУ „Св. св. Кирил и Методий“
-            </h3>
-            <p class="text-sm text-slate-500">Велико Търново, България</p>
-            <ul class="list-disc list-inside mt-2 text-slate-700">
-              <li>Следдипломна квалификация: Библиотекар.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="skills" class="mb-12">
-        <h2 class="section-title">Умения</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">
-          Представени са моите ключови умения, разделени в категории: езикови,
-          компютърни, комуникационни, организационни и професионални, като някои
-          от тях са визуализирани за по-лесно възприемане.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-          <div class="card">
-            <h3 class="text-lg font-semibold text-sky-700 mb-2">
-              Езикови умения 🌍
-            </h3>
-            <p><span class="font-medium">Майчин език:</span> Български</p>
-            <p>
-              <span class="font-medium">Английски:</span> Ниво B1 (разбиране,
-              говорене, писане)
-            </p>
-            <div class="chart-container mt-4">
-              <canvas id="languageSkillsChart"></canvas>
-            </div>
-          </div>
-          <div class="card">
-            <h3 class="text-lg font-semibold text-sky-700 mb-2">
-              Компютърни умения 💻
-            </h3>
-            <p>
-              Добри компютърни умения за работа с различни програмни продукти,
-              според ситуацията и контекста на работа.
-            </p>
-            <div class="mt-2">
-              <span class="tag">C# Web Developer</span>
-              <span class="tag">JS Web Developer</span>
-              <span class="tag">Java</span>
-            </div>
-            <div class="chart-container mt-4">
-              <canvas id="computerSkillsChart"></canvas>
-            </div>
-          </div>
-          <div class="card md:col-span-2">
-            <h3 class="text-lg font-semibold text-sky-700 mb-2">
-              Други професионални умения
-            </h3>
-            <ul class="list-disc list-inside text-slate-700 space-y-1">
-              <li>
-                <span class="font-medium">Комуникационни:</span> Относително
-                добри комуникационни умения, придобити в процеса на работа и
-                следване.
-              </li>
-              <li>
-                <span class="font-medium">Организационни:</span> Лидерство
-                (отговорност за екип от 10 души).
-              </li>
-              <li>
-                <span class="font-medium">Професионални:</span> Добра работа в
-                процеси по контролиране на качеството (отговорност за качество
-                на одита).
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="additional" class="mb-12">
-        <h2 class="section-title">Допълнителна информация</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">
-          Включва информация за моите интереси и други релевантни дейности, като
-          поддръжка на блог.
-        </p>
-        <div class="card mt-4">
-          <ul class="list-disc list-inside text-slate-700">
-             <li>
-               <a href="AddionInf.html" target="_blank" ><strong>
-                 Отиди на страница с допълнителна информация
-               </strong> </a>
-             </li> 
-            <li>Харесва ми да чета.</li>
-            <li>
-              Поддържам блог страницата на Църква на адвентистите от седмия ден
-              – Разград:
-              <a
-                href="https://casd-rz.blogspot.com/"
-                target="_blank"
-                class="text-sky-600 hover:text-sky-800 hover:underline icon-text"
-              >
-                🔗 https://casd-rz.blogspot.com/
-              </a>
-            </li>
-            <li>Нямам свидетелство за управление на МПС.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="certificates" class="mb-12">
-        <h2 class="section-title">Сертификати 🎓</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">
-          Тук са събрани директни линкове към моите сертификати от СофтУни за
-          улеснение.
-        </p>
-        <div class="card mt-4">
-          <ul class="list-none space-y-2 text-slate-700">
-            <li>
-              <span class="font-medium">C# Web Developer (СофтУни):</span>
-              <a
-                href="https://softuni.bg/certificates/details/92707/2be8fdd8"
-                target="_blank"
-                class="text-sky-600 hover:text-sky-800 hover:underline icon-text ml-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0l-4-4a2 2 0 012.828-2.828L8 7.172l2.586-2.586z"
-                    clip-rule="evenodd"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M8 12a2 2 0 00-2.828 0l-3 3a2 2 0 102.828 2.828l3-3A2 2 0 008 12zm9.414-1.414a2 2 0 00-2.828-2.828l-3 3a2 2 0 000 2.828l3 3a2 2 0 002.828-2.828L16.172 12l1.242-1.242z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                Преглед на сертификат
-              </a>
-            </li>
-            <li>
-              <span class="font-medium">JS Web Developer (СофтУни):</span>
-              <a
-                href="https://softuni.bg/certificates/details/84577/d72eff51"
-                target="_blank"
-                class="text-sky-600 hover:text-sky-800 hover:underline icon-text ml-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0l-4-4a2 2 0 012.828-2.828L8 7.172l2.586-2.586z"
-                    clip-rule="evenodd"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M8 12a2 2 0 00-2.828 0l-3 3a2 2 0 102.828 2.828l3-3A2 2 0 008 12zm9.414-1.414a2 2 0 00-2.828-2.828l-3 3a2 2 0 000 2.828l3 3a2 2 0 002.828-2.828L16.172 12l1.242-1.242z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                Преглед на сертификат
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </div>
-
-    <button id="back-to-top" title="Нагоре">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M5 10l7-7m0 0l7 7m-7-7v18"
-        />
-      </svg>
-    </button>
-
-    <footer class="bg-slate-800 text-slate-300 text-center p-6 mt-12">
-      <p>
-        &copy; <span id="currentYear"></span> Емануил Николов. Всички права
-        запазени.
-      </p>
-      <p class="text-sm mt-1">Създадено с Tailwind CSS и Chart.js.</p>
-    </footer>
-
-    <script>
-      document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const navLinks = document.querySelectorAll('#mobile-menu a, .ml-10 a'); // Select all nav links
-
-      mobileMenuButton.addEventListener('click', () => {
-          const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
-          mobileMenuButton.setAttribute('aria-expanded', !expanded);
-          mobileMenu.classList.toggle('hidden');
-          mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
-      });
-
-      navLinks.forEach(link => {
-          link.addEventListener('click', () => {
-              // Close mobile menu if open
-              if (!mobileMenu.classList.contains('hidden')) {
-                  mobileMenu.classList.add('hidden');
-                  mobileMenuButton.setAttribute('aria-expanded', 'false');
-                  mobileMenuButton.querySelectorAll('svg').forEach(svg => {
-                      if (svg.innerHTML.includes('M4 6h16M4 12h16M4 18h16')) { // Hamburger icon
-                          svg.classList.remove('hidden');
-                      } else { // Close icon
-                          svg.classList.add('hidden');
-                      }
-                  });
-              }
+              ${data.personal_info.contacts.phone}
+            </a>
+            </BR>
+            <a href="${data.personal_info.contacts.github}" target="_blank" class="flex items-center text-blue-600">
+            
+              GitHub
+            </a>
+          `;
+          
+          // 2. За мен
+          document.getElementById('about-text').textContent = data.about_me;
+          
+          // 3. Трудов стаж
+          const experienceContainer = document.getElementById('experience-container');
+          data.experience.forEach(job => {
+            experienceContainer.innerHTML += `
+              <div class="card mb-4">
+                <h3 class="text-xl font-bold">${job.position}</h3>
+                <p class="text-gray-600">${job.employer} | ${job.period}</p>
+                <ul class="list-disc pl-5 mt-2">
+                  ${job.responsibilities.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+              </div>
+            `;
           });
-      });
-
-      // Back to top button logic
-      const backToTopButton = document.getElementById('back-to-top');
-
-      window.addEventListener('scroll', () => {
-          if (window.pageYOffset > 300) { // Show button after scrolling 300px
-              backToTopButton.style.display = 'block';
-          } else {
-              backToTopButton.style.display = 'none';
-          }
-      });
-
-      backToTopButton.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
-      // Chart.js for Language Skills
-      const languageSkillsCtx = document.getElementById('languageSkillsChart').getContext('2d');
-      const languageSkillsChart = new Chart(languageSkillsCtx, {
+          
+          // 4. Образование
+          const educationContainer = document.getElementById('education-container');
+          data.education.forEach(edu => {
+            let programsHtml = '';
+            
+            if (edu.programs) {
+              programsHtml = edu.programs.map(program => `
+                <div class="mt-2">
+                  <p>${program.name}</p>
+                  <a href="${program.certificate_link}" target="_blank" class="text-blue-600 hover:underline">Сертификат</a>
+                </div>
+              `).join('');
+            } else if (edu.degrees) {
+              programsHtml = edu.degrees.map(degree => `<p class="mt-1">${degree}</p>`).join('');
+            }
+            
+            educationContainer.innerHTML += `
+              <div class="card mb-4">
+                <h3 class="text-xl font-bold">${edu.institution}</h3>
+                ${edu.program ? `<p>${edu.program}</p>` : ''}
+                ${edu.link ? `<a href="${edu.link}" target="_blank" class="text-blue-600 hover:underline">Линк</a>` : ''}
+                ${programsHtml}
+              </div>
+            `;
+          });
+          
+          // 5. Умения
+          renderCharts(data.skills);
+          
+          // Други умения
+          const otherSkillsList = document.getElementById('other-skills');
+          data.skills.other.forEach(skill => {
+            otherSkillsList.innerHTML += `<li>${skill}</li>`;
+          });
+          
+          // 6. Допълнителна информация
+          const additionalInfo = document.getElementById('additional-info');
+          additionalInfo.innerHTML = `
+            <li>Интереси: ${data.additional_info.interests}</li>
+            <li>Блог: <a href="${data.additional_info.blog.url}" target="_blank" class="text-blue-600 hover:underline">${data.additional_info.blog.name}</a></li>
+            <li>Шофьорска книжка: ${data.additional_info.driving_license}</li>
+            <li>За повече информация:<a href="${data.additional_info.other.link}" target="_blank">${data.additional_info.other.name}</a></li>
+          `;
+          
+          // 7. Сертификати
+          const certificatesContainer = document.getElementById('certificates-container');
+          data.certificates.forEach(cert => {
+            certificatesContainer.innerHTML += `
+              <div class="mb-4">
+                <h3 class="text-lg font-semibold">${cert.name}</h3>
+                <p>Издаден от: ${cert.issuer}</p>
+                <a href="${cert.url}" target="_blank" class="text-blue-600 hover:underline">Преглед на сертификата</a>
+              </div>
+            `;
+          });
+        })
+        .catch(error => {
+          console.error('Грешка:', error);
+          document.body.innerHTML = `
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+              <p class="font-bold">Грешка</p>
+              <p>Неуспешно зареждане на данните. Моля, опитайте по-късно.</p>
+            </div>
+            ${document.body.innerHTML}
+          `;
+        });
+      
+      function renderCharts(skills) {
+        // Езикови умения
+        new Chart(document.getElementById('languageChart'), {
           type: 'bar',
           data: {
-              labels: ['Български', 'Английски'],
-              datasets: [{
-                  label: 'Ниво на владеене',
-                  data: [5, 3], // 5 = Майчин, 4 = C2, 3 = B1, 2 = A2, 1 = A1 (примерни стойности)
-                  backgroundColor: [
-                      'rgba(14, 165, 233, 0.7)', // Sky blue
-                      'rgba(3, 105, 169, 0.7)'  // Darker sky blue
-                  ],
-                  borderColor: [
-                      'rgba(14, 165, 233, 1)',
-                      'rgba(3, 105, 169, 1)'
-                  ],
-                  borderWidth: 1
-              }]
+            labels: skills.languages.map(lang => lang.name),
+            datasets: [{
+              label: 'Ниво',
+              data: skills.languages.map(lang => {
+                // Конвертиране на текстово ниво към числово
+                if (lang.level === 'Майчин') return 5;
+                if (lang.level.includes('B1')) return 3;
+                return 0;
+              }),
+              backgroundColor: 'rgba(54, 162, 235, 0.7)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }]
           },
           options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              indexAxis: 'y', // Horizontal bar chart
-              scales: {
-                  x: {
-                      beginAtZero: true,
-                      max: 5,
-                      ticks: {
-                          callback: function(value, index, values) {
-                              const labels = { 1: 'Начинаещ', 2: 'Основен', 3: 'Самостоятелен', 4: 'Свободен', 5: 'Майчин' };
-                              return labels[value] || '';
-                          },
-                          stepSize: 1
-                      },
-                      grid: {
-                          display: false
-                      }
-                  },
-                  y: {
-                      grid: {
-                          display: false
-                      }
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 5,
+                ticks: {
+                  callback: function(value) {
+                    const levels = ['', 'A1', 'A2', 'B1', 'B2', 'Майчин'];
+                    return levels[value] || '';
                   }
-              },
-              plugins: {
-                  legend: {
-                      display: false
-                  },
-                  tooltip: {
-                      callbacks: {
-                          label: function(context) {
-                              let label = context.dataset.label || '';
-                              if (label) {
-                                  label += ': ';
-                              }
-                              const proficiency = context.raw;
-                              const proficiencyLabels = { 1: 'Начинаещ', 2: 'Основен', 3: 'Самостоятелен', 4: 'Свободен', 5: 'Майчин' };
-                              label += proficiencyLabels[proficiency] || proficiency;
-                              return label;
-                          }
-                      }
-                  }
+                }
               }
+            }
           }
-      });
-
-      // Chart.js for Computer Skills
-      const computerSkillsCtx = document.getElementById('computerSkillsChart').getContext('2d');
-      const computerSkillsChart = new Chart(computerSkillsCtx, {
-          type: 'bar',
+        });
+        
+        // Технически умения
+        new Chart(document.getElementById('technicalChart'), {
+          type: 'radar',
           data: {
-              labels: ['C# Web Dev', 'JS Web Dev', 'Java', 'Други софтуерни продукти'],
-              datasets: [{
-                  label: 'Ниво на владеене',
-                  data: [4, 4, 4, 3], // Примерни стойности: 5 = Експерт, 4 = Напреднал, 3 = Добър, 2 = Основен, 1 = Начинаещ
-                  backgroundColor: [
-                      'rgba(14, 165, 233, 0.7)',
-                      'rgba(3, 105, 169, 0.7)',
-                      'rgba(234, 88, 12, 0.7)',
-                      'rgba(56, 189, 248, 0.7)' // Lighter sky blue
-                  ],
-                  borderColor: [
-                      'rgba(14, 165, 233, 1)',
-                      'rgba(3, 105, 169, 1)',
-                      'rgba(234, 88, 12, 1)',
-                      'rgba(56, 189, 248, 1)'
-                  ],
-                  borderWidth: 1
-              }]
+            labels: skills.technical.map(skill => skill.name),
+            datasets: [{
+              label: 'Ниво',
+              data: skills.technical.map(skill => skill.level),
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+            }]
           },
           options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              indexAxis: 'y', // Horizontal bar chart
-              scales: {
-                  x: {
-                      beginAtZero: true,
-                      max: 5,
-                      ticks: {
-                          callback: function(value, index, values) {
-                              const labels = { 1: 'Начинаещ', 2: 'Основен', 3: 'Добър', 4: 'Напреднал', 5: 'Експерт' };
-                              return labels[value] || '';
-                          },
-                          stepSize: 1
-                      },
-                      grid: {
-                          display: false
-                      }
-                  },
-                  y: {
-                      grid: {
-                          display: false
-                      },
-                      ticks: {
-                          autoSkip: false,
-                          maxRotation: 0,
-                          minRotation: 0,
-                          callback: function(value) {
-                              const label = this.getLabelForValue(value);
-                              if (label.length > 16) { // Wrap labels longer than 16 characters
-                                  return label.split(' ').reduce((acc, word) => {
-                                      if (acc[acc.length - 1].length + word.length + 1 > 16) {
-                                          acc.push(word);
-                                      } else {
-                                          acc[acc.length - 1] += (acc[acc.length - 1] ? ' ' : '') + word;
-                                      }
-                                      return acc;
-                                  }, ['']);
-                              }
-                              return label;
-                          }
-                      }
-                  }
-              },
-              plugins: {
-                  legend: {
-                      display: false
-                  },
-                  tooltip: {
-                      callbacks: {
-                          label: function(context) {
-                              let label = context.dataset.label || '';
-                              if (label) {
-                                  label += ': ';
-                              }
-                              const proficiency = context.raw;
-                              const proficiencyLabels = { 1: 'Начинаещ', 2: 'Основен', 3: 'Добър', 4: 'Напреднал', 5: 'Експерт' };
-                              label += proficiencyLabels[proficiency] || proficiency;
-                              return label;
-                          }
-                      }
-                  }
+            scales: {
+              r: {
+                beginAtZero: true,
+                max: 5,
+                ticks: {
+                  stepSize: 1
+                }
               }
+            }
           }
-      });
-    </script>
-  </body>
+        });
+      }
+    });
+  </script>
+</body>
 </html>
